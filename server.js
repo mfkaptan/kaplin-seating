@@ -6,13 +6,10 @@ let db = new Datastore({ filename: 'db/guests.db', autoload: true });
 
 // viewed at http://localhost:8000
 app.use('/', express.static(__dirname + '/public'));
-app.listen(8000, serve);
+app.listen(8000);
 
-function serve() {
-    db.find({}, function(err, docs) {
-        console.log(docs)
-    });
-
-
-    console.log("Hello world");
-}
+app.get('/guests', function(req, res) {
+  db.find({}, function(err, docs) {
+    res.send(docs);
+  });
+})
