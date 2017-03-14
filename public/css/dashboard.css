@@ -122,3 +122,8 @@ body {
   display: inline-block;
   border-radius: 50%;
 }
+
+.canvas {
+  height: 100%;
+  width: 100%;
+}

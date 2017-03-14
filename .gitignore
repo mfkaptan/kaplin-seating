@@ -40,5 +40,5 @@ jspm_packages
 .vscode
 
 # Data
-db/guests.db
-db/guests.json
+db/*.db
+db/*.json
