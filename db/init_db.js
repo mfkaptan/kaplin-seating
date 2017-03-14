@@ -38,7 +38,7 @@ for (let i = 0; i < 5; i++) {
 // Right side
 for (let i = 0; i < 5; i++) {
   for (let j = 0; j < 5; j++) {
-    let t = { x: i * R + 1300, y: j * R + offset, type: 0, no: n++, size: 10, guests: [] };
+    let t = { x: i * R + 1350, y: j * R + offset, type: 0, no: n++, size: 10, guests: [] };
     tables.push(t);
   }
 }

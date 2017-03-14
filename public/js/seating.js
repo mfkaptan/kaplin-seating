@@ -12,6 +12,7 @@ function setup() {
 }
 
 function draw() {
+  smooth();
   background("#FAEBD7");
   tables.forEach(function(table) {
     table.draw();
