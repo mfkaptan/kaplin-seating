@@ -10,7 +10,7 @@ function preload() {
     C: loadImage("../img/c-table.png"),
     D_L: loadImage("../img/d-table-left.png"),
     D_R: loadImage("../img/d-table-right.png"),
-    L: loadImage("../img/c-table.png")
+    L: loadImage("../img/l-table.png")
   }
 }
 

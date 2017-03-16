@@ -5,7 +5,7 @@ TableType = {
 }
 var C_R = 120,
   D_R = 160,
-  L_W = 80,
+  L_W = 160,
   L_H = 400,
   G_S = 16;
 
@@ -51,7 +51,7 @@ function Table(table) {
           image(TABLE_IMG.D_R, this.x, this.y, this.w, this.h);
         break;
       case TableType.LONG:
-        rect(this.x, this.y, this.w, this.h);
+        image(TABLE_IMG.L, this.x, this.y, this.w, this.h);
         break;
     }
 
