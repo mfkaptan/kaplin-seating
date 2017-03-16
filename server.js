@@ -35,7 +35,6 @@ app.post('/tables/guests', function(req, res) {
     db.guests.update({ _id: g.id }, { $set: { table: tableNo } });
   });
 
-
   db.tables.update({ no: tableNo }, { $set: { guests: req.body.guests } });
 
   res.send(req.body.guests);

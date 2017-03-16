@@ -3,7 +3,7 @@ TypeEnum = {
   ARC: 1,
   LONG: 2
 }
-var C_R = 100,
+var C_R = 120,
   L_W = 80,
   L_H = 400;
 
@@ -37,7 +37,9 @@ function Table(table) {
     noStroke();
     switch (this.type) {
       case TypeEnum.CIRCLE:
-        ellipse(this.x, this.y, this.w, this.h);
+        imageMode(CENTER);
+        image(tableImage, this.x, this.y, this.w, this.h);
+        //ellipse(this.x, this.y, this.w, this.h);
         break;
       case TypeEnum.ARC:
         if (this.no % 2)
@@ -55,12 +57,28 @@ function Table(table) {
     textSize(18);
     fill("#4B0082");
     text(this.no, this.x - 9, this.y + 5);
+
+    // Guests
+    for (let i = 0; i < this.guests.length; i++) {
+      if (this.guests[i].gender == "m")
+        fill("#0000FF");
+      else
+        fill("#FF00FF");
+
+      rect(this.x - 30, this.y + 41, 16, 16);
+
+      textSize(12);
+      fill("#000000");
+      text(this.guests[i].name, this.x - 50, this.y + 45);
+    }
   }
 
   this.clicked = function() {
     if (this.x - this.w / 2 < mouseX && this.x + this.w / 2 > mouseX &&
-      this.y - this.h / 2 < mouseY && this.y + this.h / 2 > mouseY)
+      this.y - this.h / 2 < mouseY && this.y + this.h / 2 > mouseY) {
+      console.log(this.no);
       return true;
+    }
     return false;
   }
 }

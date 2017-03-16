@@ -15,13 +15,9 @@ function setup() {
 }
 
 function draw() {
-  smooth();
   background("#FAEBD7");
   for (t in tables)
     tables[t].draw();
-
-  for (g in guests)
-    guests[g].draw();
 }
 
 function mousePressed() {
@@ -39,7 +35,7 @@ function mousePressed() {
     let selected = [];
     // Get active elements
     $(".list-group-item.active").each(function() {
-      selected.push({ id: this.id, name: this.text });
+      selected.push(guests[this.id]);
     });
     // Active?
     if (selected.length) {
