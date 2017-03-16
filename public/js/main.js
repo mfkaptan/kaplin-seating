@@ -17,6 +17,7 @@ function preload() {
 function setup() {
   canvas = createCanvas(2100, 850);
   canvas.parent('venue-canvas');
+  frameRate(10);
 }
 
 function draw() {
@@ -35,9 +36,10 @@ function mousePressed() {
   // Get table
   let table;
   for (let t in tables) {
+    tables[t].clicked = false;
     if (tables[t].mouseOver()) {
       table = tables[t];
-      break;
+      table.clicked = true;
     }
   }
 
@@ -48,6 +50,7 @@ function mousePressed() {
     $(".list-group-item.active").each(function() {
       selected.push(guests[this.id]);
     });
+    appendSidebar("#table-guests", table.guests, true);
     // Active?
     if (selected.length) {
       // Put guests to table
@@ -57,22 +60,23 @@ function mousePressed() {
 }
 
 function getGuests() {
-  const LI = '<a id="ID" href="#" class="list-group-item">NAME</a>';
-  const N = "NAME";
-  const ID = "ID";
-
+  guests = {};
+  let sidebar = [];
   $.get("/guests", function(data) {
     data.forEach(function(guest) {
       let g = new Guest(guest);
       guests[g.id] = g;
       if (g.table == 0) {
-        $("#guest-list").append(LI.replace(N, g.name).replace(ID, g.id));
+        sidebar.push(g);
       }
     })
+
+    appendSidebar("#guest-list", sidebar);
   });
 }
 
 function getTables() {
+  tables = {};
   $.get("/tables", function(data) {
     data.forEach(function(table) {
       let t = new Table(table);
@@ -82,11 +86,9 @@ function getTables() {
 }
 
 function assignGuests(table, selectedGuests) {
-  $.post("/tables/guests", { table: table, guests: selectedGuests }, function(data) {
-    data.forEach(function(g) {
-      $("#" + g.id).remove();
-      guests[g.id].table = table;
-    })
-    tables[table].guests = data;
+  $.post("/tables/guests", { table: table, guests: selectedGuests }, function() {
+    getGuests();
+    getTables();
+    appendSidebar("#table-guests", tables[table].guests);
   });
 }

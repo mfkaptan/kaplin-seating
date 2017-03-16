@@ -18,7 +18,8 @@ function Table(table) {
   this.size = table.size;
   this.w = 0;
   this.h = 0;
-  this.guests = table.guests;
+  this.clicked = false;
+  this.guests = table.guests || [];
 
   switch (this.type) {
     case TableType.CIRCLE:
@@ -62,6 +63,12 @@ function Table(table) {
 
     // Guests
     this.drawGuests();
+
+    if (this.clicked) {
+      rectMode(CENTER);
+      fill(50, 50, 50, 100);
+      rect(this.x, this.y, this.w, this.h);
+    }
   }
 
   this.drawGuests = function() {
