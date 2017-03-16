@@ -83,12 +83,17 @@ function Table(table) {
     }
   }
 
-  this.clicked = function() {
+  this.mouseOver = function() {
     if (this.x - this.w / 2 < mouseX && this.x + this.w / 2 > mouseX &&
       this.y - this.h / 2 < mouseY && this.y + this.h / 2 > mouseY) {
-      console.log(this.no);
       return true;
     }
     return false;
+  }
+
+  this.highlight = function() {
+    rectMode(CENTER);
+    fill(100, 100, 100, 100);
+    rect(this.x, this.y, this.w, this.h);
   }
 }

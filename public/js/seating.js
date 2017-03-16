@@ -16,15 +16,21 @@ function setup() {
 
 function draw() {
   background("#FAEBD7");
-  for (let t in tables)
+  for (let t in tables) {
+    if (tables[t].mouseOver()) {
+      table = tables[t];
+      table.highlight();
+    }
+
     tables[t].draw();
+  }
 }
 
 function mousePressed() {
   // Get table
   let table;
   for (let t in tables) {
-    if (tables[t].clicked()) {
+    if (tables[t].mouseOver()) {
       table = tables[t];
       break;
     }
