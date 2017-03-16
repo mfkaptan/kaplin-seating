@@ -71,11 +71,26 @@ function Table(table) {
       else
         fill("#FF00FF");
 
-      // 0
+      // 9
       rect(this.x - 30, this.y - 41, G_S, G_S);
-
+      // 8
+      rect(this.x - 49, this.y - 15, G_S, G_S);
+      // 7
+      rect(this.x - 49, this.y + 15, G_S, G_S);
       // 6
       rect(this.x - 30, this.y + 41, G_S, G_S);
+      // 5
+      rect(this.x, this.y + 49, G_S, G_S);
+      // 4
+      rect(this.x + 30, this.y + 41, G_S, G_S);
+      // 3x
+      rect(this.x + 49, this.y + 15, G_S, G_S);
+      // 2
+      rect(this.x + 49, this.y - 15, G_S, G_S);
+      // 1
+      rect(this.x + 30, this.y - 41, G_S, G_S);
+      // 0
+      rect(this.x, this.y - 49, G_S, G_S);
 
       textSize(12);
       fill("#000000");
