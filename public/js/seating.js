@@ -1,12 +1,17 @@
 var tables = {};
 var guests = {};
 var canvas;
-var tableImage;
+var TABLE_IMG = {};
 
 function preload() {
   getGuests();
   getTables();
-  tableImage = loadImage("../img/table.png");
+  TABLE_IMG = {
+    C: loadImage("../img/c-table.png"),
+    D_L: loadImage("../img/d-table-left.png"),
+    D_R: loadImage("../img/d-table-right.png"),
+    L: loadImage("../img/c-table.png")
+  }
 }
 
 function setup() {
