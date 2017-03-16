@@ -16,14 +16,14 @@ function setup() {
 
 function draw() {
   background("#FAEBD7");
-  for (t in tables)
+  for (let t in tables)
     tables[t].draw();
 }
 
 function mousePressed() {
   // Get table
   let table;
-  for (t in tables) {
+  for (let t in tables) {
     if (tables[t].clicked()) {
       table = tables[t];
       break;
@@ -64,7 +64,7 @@ function getGuests() {
 function getTables() {
   $.get("/tables", function(data) {
     data.forEach(function(table) {
-      var t = new Table(table);
+      let t = new Table(table);
       tables[t.no] = t;
     });
   })

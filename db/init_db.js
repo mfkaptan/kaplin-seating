@@ -10,11 +10,6 @@ db.guests.insert(guests_data, function(err, newDocs) {
   console.log(newDocs.length + " guests loaded successfully.");
 });
 
-// const tables_data = require('./tables.json');
-// db.tables.insert(tables_data, function(err, newDocs) {
-//   console.log(newDocs.length + " tables loaded successfully.");
-// });
-
 let tables = [];
 let n = 1;
 let R = 160,
