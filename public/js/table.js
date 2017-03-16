@@ -5,7 +5,9 @@ TypeEnum = {
 }
 var C_R = 120,
   L_W = 80,
-  L_H = 400;
+  L_H = 400,
+  G_S = 16;
+
 
 function Table(table) {
   this.x = table.x;
@@ -59,13 +61,21 @@ function Table(table) {
     text(this.no, this.x - 9, this.y + 5);
 
     // Guests
+    this.drawGuests();
+  }
+
+  this.drawGuests = function() {
     for (let i = 0; i < this.guests.length; i++) {
       if (this.guests[i].gender == "m")
         fill("#0000FF");
       else
         fill("#FF00FF");
 
-      rect(this.x - 30, this.y + 41, 16, 16);
+      // 0
+      rect(this.x - 30, this.y - 41, G_S, G_S);
+
+      // 6
+      rect(this.x - 30, this.y + 41, G_S, G_S);
 
       textSize(12);
       fill("#000000");
