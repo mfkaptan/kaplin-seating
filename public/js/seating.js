@@ -1,9 +1,12 @@
-var tables = [];
+var tables = {};
+var guests = {};
 var canvas;
+var tableImage;
 
 function preload() {
   getGuests();
   getTables();
+  tableImage = loadImage("../img/table.png");
 }
 
 function setup() {
@@ -14,8 +17,51 @@ function setup() {
 function draw() {
   smooth();
   background("#FAEBD7");
-  tables.forEach(function(table) {
-    table.draw();
+  for (t in tables)
+    tables[t].draw();
+
+  for (g in guests)
+    guests[g].draw();
+}
+
+function mousePressed() {
+  // Get table
+  let table;
+  for (t in tables) {
+    if (tables[t].clicked()) {
+      table = tables[t];
+      break;
+    }
+  }
+
+  // Table?
+  if (table) {
+    let selected = [];
+    // Get active elements
+    $(".list-group-item.active").each(function() {
+      selected.push({ id: this.id, name: this.text });
+    });
+    // Active?
+    if (selected.length) {
+      // Put guests to table
+      assignGuests(table.no, selected);
+    }
+  }
+}
+
+function getGuests() {
+  const LI = '<a id="ID" href="#" class="list-group-item">NAME</a>';
+  const N = "NAME";
+  const ID = "ID";
+
+  $.get("/guests", function(data) {
+    data.forEach(function(guest) {
+      let g = new Guest(guest);
+      guests[g.id] = g;
+      if (g.table == 0) {
+        $("#guest-list").append(LI.replace(N, g.name).replace(ID, g.id));
+      }
+    })
   });
 }
 
@@ -23,18 +69,17 @@ function getTables() {
   $.get("/tables", function(data) {
     data.forEach(function(table) {
       var t = new Table(table);
-      tables.push(t);
+      tables[t.no] = t;
     });
   })
 }
 
-function getGuests() {
-  const LI = '<li><a href="#">NAME</a></li>';
-  const N = "NAME";
-
-  $.get("/guests", function(data) {
-    for (let i = 0; i < data.length; i++) {
-      $("#guest-list").append(LI.replace(N, data[i].name))
-    }
+function assignGuests(table, selectedGuests) {
+  $.post("/tables/guests", { table: table, guests: selectedGuests }, function(data) {
+    data.forEach(function(g) {
+      $("#" + g.id).remove();
+      guests[g.id].table = table;
+    })
+    tables[table].guests = data;
   });
 }
