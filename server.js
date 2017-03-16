@@ -32,9 +32,9 @@ app.post('/tables/guests', function(req, res) {
   let tableNo = parseInt(req.body.table);
 
   req.body.guests.forEach(function(g) {
+    g.table = tableNo;
     db.guests.update({ _id: g.id }, { $set: { table: tableNo } });
   });
-
   db.tables.update({ no: tableNo }, { $set: { guests: req.body.guests } });
 
   res.send(req.body.guests);
