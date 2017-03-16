@@ -1,6 +1,5 @@
 var tables = {};
 var guests = {};
-var canvas;
 var TABLE_IMG = {};
 
 function preload() {
@@ -15,8 +14,7 @@ function preload() {
 }
 
 function setup() {
-  canvas = createCanvas(2100, 850);
-  canvas.parent('venue-canvas');
+  createCanvas(2100, 850).parent('venue-canvas');
   frameRate(10);
 }
 
@@ -59,36 +57,9 @@ function mousePressed() {
   }
 }
 
-function getGuests() {
-  guests = {};
-  let sidebar = [];
-  $.get("/guests", function(data) {
-    data.forEach(function(guest) {
-      let g = new Guest(guest);
-      guests[g.id] = g;
-      if (g.table == 0) {
-        sidebar.push(g);
-      }
-    })
-
-    appendSidebar("#guest-list", sidebar);
-  });
-}
-
-function getTables() {
-  tables = {};
-  $.get("/tables", function(data) {
-    data.forEach(function(table) {
-      let t = new Table(table);
-      tables[t.no] = t;
-    });
-  })
-}
-
 function assignGuests(table, selectedGuests) {
   $.post("/tables/guests", { table: table, guests: selectedGuests }, function() {
     getGuests();
     getTables();
-    appendSidebar("#table-guests", tables[table].guests);
   });
 }

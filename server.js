@@ -1,18 +1,17 @@
-var path = require('path');
+const path = require('path');
 const bodyParser = require('body-parser')
-var express = require('express');
-var app = express();
+const express = require('express');
+const app = express();
 const Datastore = require('nedb');
 
-var db = {};
-db.guests = new Datastore({ filename: 'db/guests.db', autoload: true });
-db.tables = new Datastore({ filename: 'db/tables.db', autoload: true });
+const db = {
+  guests: new Datastore({ filename: 'db/guests.db', autoload: true }),
+  tables: new Datastore({ filename: 'db/tables.db', autoload: true }),
+};
 
 // viewed at http://localhost:8000
 app.use('/', express.static(__dirname + '/public'));
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.listen(8000);
 
