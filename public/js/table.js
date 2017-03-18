@@ -7,7 +7,8 @@ var C_R = 120,
   D_R = 160,
   L_W = 160,
   L_H = 400,
-  G_S = 16;
+  G_S = 16,
+  D_S = 20;
 
 var circle_table_coordinates = [
   [0, -49],
@@ -21,6 +22,16 @@ var circle_table_coordinates = [
   [-49, -15],
   [-30, -41],
 ];
+
+var d_table_coordinates = [
+  [-10, -65],
+  [-10, +65],
+  [-50, +60],
+  [-65, -20],
+  [-65, 20],
+  [-50, -60],
+];
+
 
 function Table(table) {
   this.x = table.x;
@@ -92,6 +103,12 @@ function Table(table) {
 
       if (this.type === TableType.CIRCLE) {
         rect(this.x + circle_table_coordinates[i][0], this.y + circle_table_coordinates[i][1], G_S, G_S);
+      } else if (this.type === TableType.D) {
+        if (this.no === 1) {
+          rect(this.x + d_table_coordinates[i][0], this.y + d_table_coordinates[i][1], D_S, D_S);
+        } else {
+          rect(this.x - d_table_coordinates[i][0], this.y - d_table_coordinates[i][1], D_S, D_S);
+        }
       }
 
 
