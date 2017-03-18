@@ -7,8 +7,52 @@ var C_R = 120,
   D_R = 160,
   L_W = 160,
   L_H = 400,
-  G_S = 16;
+  G_S = 16,
+  D_S = 20;
 
+var circle_table_coordinates = [
+  [0, -49],
+  [30, -41],
+  [49, -15],
+  [49, 15],
+  [30, 41],
+  [0, 49],
+  [-30, 41],
+  [-49, 15],
+  [-49, -15],
+  [-30, -41],
+];
+
+var d_table_coordinates = [
+  [-10, -65],
+  [-10, +65],
+  [-50, +60],
+  [-65, -20],
+  [-65, 20],
+  [-50, -60],
+];
+
+var long_table_coordinates = [
+  [65, -5],
+  [65, -45],
+  [65, -85],
+  [65, -125],
+  [65, -165],
+  [65, 35],
+  [65, 75],
+  [65, 115],
+  [65, 155],
+  [-65, -5],
+  [-65, -45],
+  [-65, -85],
+  [-65, -125],
+  [-65, -165],
+  [-65, 35],
+  [-65, 75],
+  [-65, 115],
+  [-65, 155],
+  [-65, -60],
+];
 
 function Table(table) {
   this.x = table.x;
@@ -86,11 +130,17 @@ function Table(table) {
       else
         fill("pink");
 
-      // 0
-      rect(this.x - 30, this.y - 41, G_S, G_S);
-
-      // 6
-      rect(this.x - 30, this.y + 41, G_S, G_S);
+      if (this.type === TableType.CIRCLE) {
+        rect(this.x + circle_table_coordinates[i][0], this.y + circle_table_coordinates[i][1], G_S, G_S);
+      } else if (this.type === TableType.D) {
+        if (this.no === 1) {
+          rect(this.x + d_table_coordinates[i][0], this.y + d_table_coordinates[i][1], D_S, D_S);
+        } else {
+          rect(this.x - d_table_coordinates[i][0], this.y - d_table_coordinates[i][1], D_S, D_S);
+        }
+      } else {
+          rect(this.x + long_table_coordinates[i][0], this.y + long_table_coordinates[i][1], D_S, D_S);
+      }
 
       textSize(12);
       fill("white");
