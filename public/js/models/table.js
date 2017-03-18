@@ -1,9 +1,10 @@
-TableType = {
+const TableType = {
   CIRCLE: 0,
-  D: 1,
-  LONG: 2
+  D_L: 1,
+  D_R: 2,
+  LONG: 3
 }
-var C_R = 120,
+const C_R = 120,
   D_R = 160,
   L_W = 160,
   L_H = 400,
@@ -71,7 +72,9 @@ function Table(table) {
       this.w = C_R;
       this.h = C_R;
       break;
-    case TableType.D:
+
+    case TableType.D_L:
+    case TableType.D_R:
       this.w = D_R;
       this.h = D_R;
       break;
@@ -98,11 +101,11 @@ function Table(table) {
       case TableType.CIRCLE:
         image(TABLE_IMG.C, this.x, this.y, this.w, this.h);
         break;
-      case TableType.D:
-        if (this.no % 2)
-          image(TABLE_IMG.D_L, this.x, this.y, this.w, this.h);
-        else
-          image(TABLE_IMG.D_R, this.x, this.y, this.w, this.h);
+      case TableType.D_L:
+        image(TABLE_IMG.D_L, this.x, this.y, this.w, this.h);
+        break;
+      case TableType.D_R:
+        image(TABLE_IMG.D_R, this.x, this.y, this.w, this.h);
         break;
       case TableType.LONG:
         image(TABLE_IMG.L, this.x, this.y, this.w, this.h);
@@ -117,7 +120,7 @@ function Table(table) {
     // Guests
     this.drawGuests();
 
-    if (this.clicked) {
+    if (this.isClicked) {
       rectMode(CENTER);
       fill(50, 50, 50, 100);
       rect(this.x, this.y, this.w, this.h);
@@ -131,16 +134,19 @@ function Table(table) {
       else
         fill("pink");
 
-      if (this.type === TableType.CIRCLE) {
-        rect(this.x + circle_table_coordinates[i][0], this.y + circle_table_coordinates[i][1], G_S, G_S);
-      } else if (this.type === TableType.D) {
-        if (this.no === 1) {
+      switch (this.type) {
+        case TableType.CIRCLE:
+          rect(this.x + circle_table_coordinates[i][0], this.y + circle_table_coordinates[i][1], G_S, G_S);
+          break;
+        case TableType.D_L:
           rect(this.x + d_table_coordinates[i][0], this.y + d_table_coordinates[i][1], D_S, D_S);
-        } else {
+          break;
+        case TableType.D_R:
           rect(this.x - d_table_coordinates[i][0], this.y - d_table_coordinates[i][1], D_S, D_S);
-        }
-      } else {
-        rect(this.x + long_table_coordinates[i][0], this.y + long_table_coordinates[i][1], D_S, D_S);
+          break;
+        case TableType.LONG:
+          rect(this.x + long_table_coordinates[i][0], this.y + long_table_coordinates[i][1], D_S, D_S);
+          break;
       }
 
       textSize(12);
