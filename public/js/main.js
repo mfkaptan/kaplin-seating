@@ -76,3 +76,22 @@ function mousePressed() {
     }
   }
 }
+
+function search() {
+  // Declare variables
+  var input, filter, ul, li, a, i;
+  input =  $("#search-box").val(); //document.getElementById('search-box');
+  filter = input.toUpperCase();
+
+  searched_guests = []
+
+  // Loop through all list items, and hide those who don't match the search query
+  for (let g in guests) {
+    if (guests[g].name.toUpperCase().indexOf(filter) > -1) {
+      searched_guests.push(guests[g]);
+    }
+  }
+
+  console.log(searched_guests);
+  appendSidebar("#searched-guests",searched_guests);
+}
