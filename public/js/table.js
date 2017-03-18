@@ -32,6 +32,27 @@ var d_table_coordinates = [
   [-50, -60],
 ];
 
+var long_table_coordinates = [
+  [65, -5],
+  [65, -45],
+  [65, -85],
+  [65, -125],
+  [65, -165],
+  [65, 35],
+  [65, 75],
+  [65, 115],
+  [65, 155],
+  [-65, -5],
+  [-65, -45],
+  [-65, -85],
+  [-65, -125],
+  [-65, -165],
+  [-65, 35],
+  [-65, 75],
+  [-65, 115],
+  [-65, 155],
+  [-65, -60],
+];
 
 function Table(table) {
   this.x = table.x;
@@ -109,8 +130,9 @@ function Table(table) {
         } else {
           rect(this.x - d_table_coordinates[i][0], this.y - d_table_coordinates[i][1], D_S, D_S);
         }
+      } else {
+          rect(this.x + long_table_coordinates[i][0], this.y + long_table_coordinates[i][1], D_S, D_S);
       }
-
 
       textSize(12);
       fill("white");
