@@ -63,7 +63,8 @@ function Table(table) {
   this.guests = table.guests || [];
   this.w = 0;
   this.h = 0;
-  this.clicked = false;
+  this.isClicked = false;
+  this.isHidden = false;
 
   switch (this.type) {
     case TableType.CIRCLE:
@@ -139,7 +140,7 @@ function Table(table) {
           rect(this.x - d_table_coordinates[i][0], this.y - d_table_coordinates[i][1], D_S, D_S);
         }
       } else {
-          rect(this.x + long_table_coordinates[i][0], this.y + long_table_coordinates[i][1], D_S, D_S);
+        rect(this.x + long_table_coordinates[i][0], this.y + long_table_coordinates[i][1], D_S, D_S);
       }
 
       textSize(12);

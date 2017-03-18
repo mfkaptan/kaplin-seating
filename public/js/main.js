@@ -35,13 +35,18 @@ function draw() {
 
   for (let t in tables) {
     let table = tables[t];
+    table.isHidden = false;
+    // If has space for total
+    if (table.space() < total) {
+      table.isHidden = true;
+      continue;
+    }
+
     if (table.mouseOver()) {
       table.highlight();
     }
 
-    // If has space for total
-    if (table.space() >= total)
-      table.draw();
+    table.draw();
   }
 }
 
@@ -54,12 +59,14 @@ function mousePressed() {
   // Is a table clicked?
   for (let t in tables) {
     let table = tables[t];
+    if (table.isHidden)
+      continue;
 
-    table.clicked = false;
+    table.isClicked = false;
 
     // If this table clicked
     if (table.mouseOver()) {
-      table.clicked = true;
+      table.isClicked = true;
       appendSidebar("#table-guests", table.guests);
       // selected guests?
       if (selected.length) {
