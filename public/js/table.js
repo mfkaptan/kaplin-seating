@@ -1,10 +1,11 @@
-TypeEnum = {
+TableType = {
   CIRCLE: 0,
-  ARC: 1,
+  D: 1,
   LONG: 2
 }
 var C_R = 120,
-  L_W = 80,
+  D_R = 160,
+  L_W = 160,
   L_H = 400,
   G_S = 16;
 
@@ -17,59 +18,65 @@ function Table(table) {
   this.size = table.size;
   this.w = 0;
   this.h = 0;
-  this.guests = table.guests;
+  this.clicked = false;
+  this.guests = table.guests || [];
 
   switch (this.type) {
-    case TypeEnum.CIRCLE:
+    case TableType.CIRCLE:
       this.w = C_R;
       this.h = C_R;
       break;
-    case TypeEnum.ARC:
-      this.w = C_R;
-      this.h = C_R;
+    case TableType.D:
+      this.w = D_R;
+      this.h = D_R;
       break;
-    case TypeEnum.LONG:
+    case TableType.LONG:
       this.w = L_W;
       this.h = L_H;
       break;
   }
 
   this.draw = function() {
-    fill("orange");
+    imageMode(CENTER);
+    rectMode(CENTER);
     noStroke();
+
     switch (this.type) {
-      case TypeEnum.CIRCLE:
-        imageMode(CENTER);
-        image(tableImage, this.x, this.y, this.w, this.h);
-        //ellipse(this.x, this.y, this.w, this.h);
+      case TableType.CIRCLE:
+        image(TABLE_IMG.C, this.x, this.y, this.w, this.h);
         break;
-      case TypeEnum.ARC:
+      case TableType.D:
         if (this.no % 2)
-          arc(this.x + 10, this.y, this.w, this.h, PI * 4.5, PI * 1.5);
+          image(TABLE_IMG.D_L, this.x, this.y, this.w, this.h);
         else
-          arc(this.x - 10, this.y, this.w, this.h, PI * 1.5, PI * 4.5);
+          image(TABLE_IMG.D_R, this.x, this.y, this.w, this.h);
         break;
-      case TypeEnum.LONG:
-        rectMode(CENTER);
-        rect(this.x, this.y, this.w, this.h);
+      case TableType.LONG:
+        image(TABLE_IMG.L, this.x, this.y, this.w, this.h);
         break;
     }
 
     // Table no
-    textSize(18);
-    fill("#4B0082");
-    text(this.no, this.x - 9, this.y + 5);
+    textSize(20);
+    fill("purple");
+    text(this.no, this.x - 10, this.y + 5);
 
     // Guests
     this.drawGuests();
+
+    if (this.clicked) {
+      rectMode(CENTER);
+      fill(50, 50, 50, 100);
+      rect(this.x, this.y, this.w, this.h);
+    }
   }
 
   this.drawGuests = function() {
     for (let i = 0; i < this.guests.length; i++) {
       if (this.guests[i].gender == "m")
-        fill("#0000FF");
+        fill("skyblue");
       else
-        fill("#FF00FF");
+        fill("pink");
 
       // 9
       rect(this.x - 30, this.y - 41, G_S, G_S);
@@ -93,17 +100,22 @@ function Table(table) {
       rect(this.x, this.y - 49, G_S, G_S);
 
       textSize(12);
-      fill("#000000");
+      fill("white");
       text(this.guests[i].name, this.x - 50, this.y + 45);
     }
   }
 
-  this.clicked = function() {
+  this.mouseOver = function() {
     if (this.x - this.w / 2 < mouseX && this.x + this.w / 2 > mouseX &&
       this.y - this.h / 2 < mouseY && this.y + this.h / 2 > mouseY) {
-      console.log(this.no);
       return true;
     }
     return false;
+  }
+
+  this.highlight = function() {
+    rectMode(CENTER);
+    fill(100, 100, 100, 100);
+    rect(this.x, this.y, this.w, this.h);
   }
 }
