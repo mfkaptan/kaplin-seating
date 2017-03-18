@@ -11,6 +11,27 @@ const C_R = 120,
   G_S = 16,
   D_S = 20;
 
+const COLORS = [
+  "GreenYellow ",
+  "LightPink",
+  "OrangeRed",
+  "SeaGreen",
+  "ForestGreen",
+  "Teal",
+  "IndianRed",
+  "FireBrick",
+  "MediumVioletRed",
+  "Indigo",
+  "DarkRed",
+  "Margoon",
+  "Brown",
+  "Turquoise",
+  "DarkSlateGray",
+  "OrangeRed",
+  "PaleGreen",
+  "MidnightBlue"
+]
+
 var circle_table_coordinates = [
   [0, -49],
   [30, -41],
@@ -128,30 +149,36 @@ function Table(table) {
   }
 
   this.drawGuests = function() {
+    let guest_size = 0;
+
+   /* for (let i = 0; i < this.guests.length; i++) {
+      guest_size += this.guests[i].size;
+    }
+    */
+
+    let seat_no = 0;
     for (let i = 0; i < this.guests.length; i++) {
-      if (this.guests[i].gender == "m")
-        fill("skyblue");
-      else
-        fill("pink");
+      for (let j = 0; j < this.guests[i].size; j++) {
+        fill(COLORS[i]);
 
-      switch (this.type) {
-        case TableType.CIRCLE:
-          rect(this.x + circle_table_coordinates[i][0], this.y + circle_table_coordinates[i][1], G_S, G_S);
-          break;
-        case TableType.D_L:
-          rect(this.x + d_table_coordinates[i][0], this.y + d_table_coordinates[i][1], D_S, D_S);
-          break;
-        case TableType.D_R:
-          rect(this.x - d_table_coordinates[i][0], this.y - d_table_coordinates[i][1], D_S, D_S);
-          break;
-        case TableType.LONG:
-          rect(this.x + long_table_coordinates[i][0], this.y + long_table_coordinates[i][1], D_S, D_S);
-          break;
+        switch (this.type) {
+          case TableType.CIRCLE:
+            rect(this.x + circle_table_coordinates[seat_no][0], this.y + circle_table_coordinates[seat_no][1], G_S, G_S);
+            break;
+          case TableType.D_L:
+            rect(this.x + d_table_coordinates[seat_no][0], this.y + d_table_coordinates[seat_no][1], D_S, D_S);
+            break;
+          case TableType.D_R:
+            rect(this.x - d_table_coordinates[seat_no][0], this.y - d_table_coordinates[seat_no][1], D_S, D_S);
+            break;
+          case TableType.LONG:
+            rect(this.x + long_table_coordinates[seat_no][0], this.y + long_table_coordinates[seat_no][1], D_S, D_S);
+            break;
+        }
+        seat_no++;
       }
-
-      textSize(12);
-      fill("white");
-      text(this.guests[i].name, this.x - 50, this.y + 45);
+    textSize(12);
+   // text(this.guests[i].name, this.x - 50, this.y + 45);
     }
   }
 
