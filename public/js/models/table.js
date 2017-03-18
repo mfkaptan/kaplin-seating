@@ -149,12 +149,6 @@ function Table(table) {
   }
 
   this.drawGuests = function() {
-    let guest_size = 0;
-
-   /* for (let i = 0; i < this.guests.length; i++) {
-      guest_size += this.guests[i].size;
-    }
-    */
 
     let seat_no = 0;
     for (let i = 0; i < this.guests.length; i++) {
@@ -178,7 +172,6 @@ function Table(table) {
         seat_no++;
       }
     textSize(12);
-   // text(this.guests[i].name, this.x - 50, this.y + 45);
     }
   }
 
