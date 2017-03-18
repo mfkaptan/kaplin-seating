@@ -1,5 +1,6 @@
 var tables = {};
 var guests = {};
+var selectedGuests = [];
 var TABLE_IMG = {};
 
 function preload() {
@@ -20,46 +21,51 @@ function setup() {
 
 function draw() {
   background("#FAEBD7");
+
+  // Find selected guests
+  selectedGuests = [];
+  // Get selected guests total size
+  let total = 0;
+  $(".list-group-item.active").each(function() {
+    if (this.id in guests) {
+      selectedGuests.push(guests[this.id]);
+      total += guests[this.id].size;
+    }
+  });
+
   for (let t in tables) {
-    if (tables[t].mouseOver()) {
-      table = tables[t];
+    let table = tables[t];
+    if (table.mouseOver()) {
       table.highlight();
     }
 
-    tables[t].draw();
+    // If has space for total
+    if (table.space() >= total)
+      table.draw();
   }
 }
 
 function mousePressed() {
-  // Get table
-  let table;
-  for (let t in tables) {
-    tables[t].clicked = false;
-    if (tables[t].mouseOver()) {
-      table = tables[t];
-      table.clicked = true;
-    }
-  }
-
-  // Table?
-  if (table) {
-    let selected = [];
-    // Get active elements
-    $(".list-group-item.active").each(function() {
-      selected.push(guests[this.id]);
-    });
-    appendSidebar("#table-guests", table.guests, true);
-    // Active?
-    if (selected.length) {
-      // Put guests to table
-      assignGuests(table.no, selected);
-    }
-  }
-}
-
-function assignGuests(table, selectedGuests) {
-  $.post("/tables/guests", { table: table, guests: selectedGuests }, function() {
-    getGuests();
-    getTables();
+  let selected = [];
+  $(".list-group-item.active").each(function() {
+    selected.push(guests[this.id]);
   });
+
+  // Is a table clicked?
+  for (let t in tables) {
+    let table = tables[t];
+
+    table.clicked = false;
+
+    // If this table clicked
+    if (table.mouseOver()) {
+      table.clicked = true;
+      appendSidebar("#table-guests", table.guests);
+      // selected guests?
+      if (selected.length) {
+        // Put guests to table
+        assignGuests(table.no, selected);
+      }
+    }
+  }
 }

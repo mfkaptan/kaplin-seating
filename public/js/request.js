@@ -23,3 +23,10 @@ function getTables() {
     });
   })
 }
+
+function assignGuests(table, selectedGuests) {
+  $.post("/tables/" + table + "/guests", { guests: selectedGuests }, function() {
+    getGuests();
+    getTables();
+  });
+}
