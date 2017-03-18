@@ -17,8 +17,17 @@ app.listen(8000);
 
 app.get('/guests', function(req, res) {
   db.guests.persistence.compactDatafile();
-  db.guests.find({}, function(err, guests) {
+  db.guests.find({}).sort({ name: 1 }).exec(function(err, guests) {
     res.send(guests);
+  });
+})
+
+app.post('/guests', function(req, res) {
+  let guest = req.body.guest;
+  g.size = parseInt(g.size);
+  g.table = parseInt(g.table);
+  db.guests.insert(guest, function(err, newDocs) {
+    res.send();
   });
 })
 
