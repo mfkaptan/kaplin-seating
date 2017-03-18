@@ -9,6 +9,18 @@ var C_R = 120,
   L_H = 400,
   G_S = 16;
 
+var circle_table_coordinates = [
+  [0, -49],
+  [30, -41],
+  [49, -15],
+  [49, 15],
+  [30, 41],
+  [0, 49],
+  [-30, 41],
+  [-49, 15],
+  [-49, -15],
+  [-30, -41],
+];
 
 function Table(table) {
   this.x = table.x;
@@ -78,26 +90,10 @@ function Table(table) {
       else
         fill("pink");
 
-      // 9
-      rect(this.x - 30, this.y - 41, G_S, G_S);
-      // 8
-      rect(this.x - 49, this.y - 15, G_S, G_S);
-      // 7
-      rect(this.x - 49, this.y + 15, G_S, G_S);
-      // 6
-      rect(this.x - 30, this.y + 41, G_S, G_S);
-      // 5
-      rect(this.x, this.y + 49, G_S, G_S);
-      // 4
-      rect(this.x + 30, this.y + 41, G_S, G_S);
-      // 3x
-      rect(this.x + 49, this.y + 15, G_S, G_S);
-      // 2
-      rect(this.x + 49, this.y - 15, G_S, G_S);
-      // 1
-      rect(this.x + 30, this.y - 41, G_S, G_S);
-      // 0
-      rect(this.x, this.y - 49, G_S, G_S);
+      if (this.type === TableType.CIRCLE) {
+        rect(this.x + circle_table_coordinates[i][0], this.y + circle_table_coordinates[i][1], G_S, G_S);
+      }
+
 
       textSize(12);
       fill("white");
