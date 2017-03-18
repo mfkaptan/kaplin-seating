@@ -1,21 +1,17 @@
 function appendSidebar(divId, guests) {
   $(divId).empty();
 
-  const LI = '<a id="_ID_" href="#" class="list-group-item">_NAME__SPAN_</a>';
-  const SPAN = '<span class="badge">_SPAN_</span>';
-  const N = "_NAME_";
+  const LI = '<a id="_ID_" href="#" class="list-group-item">_NAME__SIZE_</a>';
+  const SIZE = '<badge class="badge">_SIZE_</span>';
   const ID = "_ID_";
-  const S = "_SPAN_";
+  const N = "_NAME_";
+  const S = "_SIZE_";
 
   if (guests)
     guests.forEach(function(g) {
-      let a = LI.replace(N, g.name).replace(ID, g.id);
-      let badge = "";
+      let sizeBadge = SIZE.replace(S, g.size);
+      let a = LI.replace(N, g.name).replace(ID, g.id).replace(S, sizeBadge);
 
-      if (g.table)
-        badge = SPAN.replace(S, g.table);
-
-      a = a.replace(S, badge);
       $(divId).append(a);
     })
 }

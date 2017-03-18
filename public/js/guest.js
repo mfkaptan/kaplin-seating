@@ -1,6 +1,6 @@
 function Guest(guest) {
   this.name = guest.name;
   this.id = guest._id;
-  this.table = guest.table;
-  this.gender = guest.gender;
+  this.table = parseInt(guest.table);
+  this.size = parseInt(guest.size);
 }

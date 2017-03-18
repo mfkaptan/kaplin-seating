@@ -16,16 +16,16 @@ let R = 160,
   offset = 100;
 
 // Middle
-let a1 = { x: 950, y: offset, type: 1, no: n++, size: 10, guests: [] };
-let a2 = { x: 1150, y: offset, type: 1, no: n++, size: 10, guests: [] };
-let l1 = { x: 950, y: R + 360, type: 2, no: n++, size: 10, guests: [] };
-let l2 = { x: 1150, y: R + 360, type: 2, no: n++, size: 10, guests: [] };
+let a1 = { x: 950, y: offset, type: 1, no: n++, capacity: 6, guests: [] };
+let a2 = { x: 1150, y: offset, type: 1, no: n++, capacity: 6, guests: [] };
+let l1 = { x: 950, y: R + 360, type: 2, no: n++, capacity: 18, guests: [] };
+let l2 = { x: 1150, y: R + 360, type: 2, no: n++, capacity: 18, guests: [] };
 tables.push(a1, a2, l1, l2);
 
 // Left side
 for (let i = 0; i < 5; i++) {
   for (let j = 0; j < 5; j++) {
-    let t = { x: i * R + offset, y: j * R + offset, type: 0, no: n++, size: 10, guests: [] };
+    let t = { x: i * R + offset, y: j * R + offset, type: 0, no: n++, capacity: 10, guests: [] };
     tables.push(t);
   }
 }
@@ -33,7 +33,7 @@ for (let i = 0; i < 5; i++) {
 // Right side
 for (let i = 0; i < 5; i++) {
   for (let j = 0; j < 5; j++) {
-    let t = { x: i * R + 1350, y: j * R + offset, type: 0, no: n++, size: 10, guests: [] };
+    let t = { x: i * R + 1350, y: j * R + offset, type: 0, no: n++, capacity: 10, guests: [] };
     tables.push(t);
   }
 }

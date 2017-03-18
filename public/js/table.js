@@ -15,11 +15,11 @@ function Table(table) {
   this.y = table.y;
   this.type = table.type;
   this.no = table.no;
-  this.size = table.size;
+  this.capacity = table.capacity;
+  this.guests = table.guests || [];
   this.w = 0;
   this.h = 0;
   this.clicked = false;
-  this.guests = table.guests || [];
 
   switch (this.type) {
     case TableType.CIRCLE:
@@ -34,6 +34,14 @@ function Table(table) {
       this.w = L_W;
       this.h = L_H;
       break;
+  }
+
+  this.space = function() {
+    let current = 0;
+    for (let i = 0; i < this.guests.length; i++) {
+      current += this.guests[i].size;
+    }
+    return this.capacity - current;
   }
 
   this.draw = function() {

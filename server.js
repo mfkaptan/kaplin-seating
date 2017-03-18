@@ -29,18 +29,23 @@ app.get('/tables', function(req, res) {
   });
 })
 
-app.post('/tables/guests', function(req, res) {
-  let tableNo = parseInt(req.body.table);
+app.post('/tables/:tableNo/guests', function(req, res) {
+  let tableNo = parseInt(req.params.tableNo);
+  let guests = req.body.guests;
 
-  req.body.guests.forEach(function(g) {
+  guests.forEach(function(g) {
+    // Clean
+    g.size = parseInt(g.size);
+    g.table = parseInt(g.table);
+
     // Remove guest from old table
-    db.tables.update({ no: parseInt(g.table) }, { $pull: { guests: { id: g.id } } });
+    db.tables.update({ no: g.table }, { $pull: { guests: { id: g.id } } });
     // Update guest's table
     g.table = tableNo;
     db.guests.update({ _id: g.id }, { $set: { table: tableNo } });
   });
   // Update table with new guests
-  db.tables.update({ no: tableNo }, { $addToSet: { guests: { $each: req.body.guests } } });
+  db.tables.update({ no: tableNo }, { $addToSet: { guests: { $each: guests } } });
 
   res.send();
 })
