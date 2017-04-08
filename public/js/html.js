@@ -36,9 +36,7 @@ function search() {
   input =  $("#search-box").val();
   filter = input.turkishToUpper();
 
-  console.log(filter);
-
-  foundGuests = []
+  let foundGuests = []
 
   // Loop through all list items, and hide those who don't match the search query
  if (input !== "") {
