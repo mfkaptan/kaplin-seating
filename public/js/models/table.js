@@ -46,34 +46,33 @@ var circle_table_coordinates = [
 ];
 
 var d_table_coordinates = [
+  [-50, -60],
   [-10, -65],
+  [-65, 20],
+  [-65, -20],
   [-10, +65],
   [-50, +60],
-  [-65, -20],
-  [-65, 20],
-  [-50, -60],
 ];
 
 var long_table_coordinates = [
-  [65, -5],
-  [65, -45],
-  [65, -85],
-  [65, -125],
   [65, -165],
+  [65, -125],
+  [65, -85],
+  [65, -45],
+  [65, -5],
   [65, 35],
   [65, 75],
   [65, 115],
   [65, 155],
-  [-65, -5],
-  [-65, -45],
-  [-65, -85],
-  [-65, -125],
   [-65, -165],
+  [-65, -125],
+  [-65, -85],
+  [-65, -45],
+  [-65, -5],
   [-65, 35],
   [-65, 75],
   [-65, 115],
   [-65, 155],
-  [-65, -60],
 ];
 
 function Table(table) {
@@ -163,7 +162,7 @@ function Table(table) {
             rect(this.x + d_table_coordinates[seatNo][0], this.y + d_table_coordinates[seatNo][1], D_S, D_S);
             break;
           case TableType.D_R:
-            rect(this.x - d_table_coordinates[seatNo][0], this.y - d_table_coordinates[seatNo][1], D_S, D_S);
+            rect(this.x - d_table_coordinates[5-seatNo][0], this.y - d_table_coordinates[5-seatNo][1], D_S, D_S);
             break;
           case TableType.LONG:
             rect(this.x + long_table_coordinates[seatNo][0], this.y + long_table_coordinates[seatNo][1], D_S, D_S);

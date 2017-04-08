@@ -29,18 +29,22 @@ let l1 = { x: 950, y: R + 360, type: TableType.LONG, no: n++, capacity: 18, gues
 let l2 = { x: 1150, y: R + 360, type: TableType.LONG, no: n++, capacity: 18, guests: [] };
 tables.push(a1, a2, l1, l2);
 
+n = 55;
 // Left side
 for (let i = 0; i < 5; i++) {
   for (let j = 0; j < 5; j++) {
-    let t = { x: i * R + offset, y: j * R + offset, type: TableType.CIRCLE, no: n++, capacity: 10, guests: [] };
+    n = n-2;
+    let t = { x: i * R + offset, y: j * R + offset, type: TableType.CIRCLE, no: n, capacity: 10, guests: [] };
     tables.push(t);
   }
 }
 
+n = 4
 // Right side
 for (let i = 0; i < 5; i++) {
   for (let j = 0; j < 5; j++) {
-    let t = { x: i * R + 1350, y: j * R + offset, type: TableType.CIRCLE, no: n++, capacity: 10, guests: [] };
+    n = n+2
+    let t = { x: i * R + 1350, y: j * R + offset, type: TableType.CIRCLE, no: n, capacity: 10, guests: [] };
     tables.push(t);
   }
 }

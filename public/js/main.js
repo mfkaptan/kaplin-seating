@@ -76,32 +76,3 @@ function mousePressed() {
     }
   }
 }
-
-String.prototype.turkishToUpper = function(){
-    var string = this;
-    var letters = { "i": "İ", "ş": "Ş", "ğ": "Ğ", "ü": "Ü", "ö": "Ö", "ç": "Ç", "ı": "I" };
-    string = string.replace(/(([iışğüçö]))+/g, function(letter){ return letters[letter]; })
-    return string.toUpperCase();
-}
-
-function search() {
-  // Declare variables
-  var input, filter, ul, li;
-  input =  $("#search-box").val();
-  filter = input.turkishToUpper();
-
-  console.log(filter);
-
-  foundGuests = []
-
-  // Loop through all list items, and hide those who don't match the search query
- if (input !== "") {
-  for (let g in guests) {
-    if (guests[g].name.turkishToUpper().indexOf(filter) > -1) {
-      foundGuests.push(guests[g]);
-    }
-  }
- }
-
-  appendSidebar("#searched-guests",foundGuests);
-}
